@@ -2,6 +2,7 @@
 using SteelSeries.GameSense.DeviceZone;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class ScriptedGameController : MonoBehaviour {
 
@@ -14,7 +15,8 @@ public class ScriptedGameController : MonoBehaviour {
         GSClient.Instance.RegisterGame("UNITY-GAMESENSE-APP-SCRIPTED", "Scripted Gamesense App", "LegitDevInc");
 
         ScreenHandler screenHandler = OLEDHandlerExamples();
-        ColorHandler colorHandler = RangedColorHandler();
+        ColorHandler rangedColorHandler = RangedColorHandler();
+        ColorHandler staticColorHandler = StaticColorHandler();
         TactileHandler tactileHandler = StaticTactileHandler();
 
         // bind our event with the handler
@@ -23,7 +25,7 @@ public class ScriptedGameController : MonoBehaviour {
             0,                                          // min value
             100,                                        // max value
             EventIconId.Default,                        // icon id
-            new AbstractHandler[] { colorHandler, screenHandler }   // array of handlers
+            new AbstractHandler[] { rangedColorHandler, screenHandler }   // array of handlers
             );
 
         GSClient.Instance.BindEvent(
@@ -31,7 +33,7 @@ public class ScriptedGameController : MonoBehaviour {
             0,                                          // min value
             1,                                          // max value
             EventIconId.Default,                        // icon id
-            new AbstractHandler[] { tactileHandler }    // array of handlers
+            new AbstractHandler[] { tactileHandler, staticColorHandler }   // array of handlers
             );
     }
     void Update() {
@@ -41,6 +43,10 @@ public class ScriptedGameController : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
             EventRangeDown(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
         }
     }
 
@@ -76,6 +82,16 @@ public class ScriptedGameController : MonoBehaviour {
         ColorRange[] ranges = { cyanRange, redRange, greenRange };
 
         return ColorHandler.Create(zone, IlluminationMode.Color, ColorRanges.Create(ranges));
+    }
+
+    private ColorHandler StaticColorHandler() {
+        MouseZoneLogo zone = UnityEngine.ScriptableObject.CreateInstance<MouseZoneLogo>();
+        RateStatic rate = ScriptableObject.CreateInstance<RateStatic>();
+        rate.frequency = 0;
+        rate.repeatLimit = 0;
+
+        ColorStatic cyan = ColorStatic.Create(0, 194, 255);
+        return ColorHandler.Create(zone, IlluminationMode.Color, cyan, rate);
     }
 
     private TactileHandler StaticTactileHandler() {
@@ -128,5 +144,9 @@ public class ScriptedGameController : MonoBehaviour {
 
         // Choose from AbstractFrameDataRange[]'s above to pass into handler
         return ScreenHandler.Create(zone, ScreenMode.screen, ranged_frames); // can also use multi-line, image_frame, or mixed_frames
+    }
+
+    public void SwitchScenes() {
+        SceneManager.LoadScene("GSPrefabScene");
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 public class PrefabGameController : MonoBehaviour
 {
     public UnityEngine.UI.Text rangeText;
@@ -13,6 +14,10 @@ public class PrefabGameController : MonoBehaviour
     
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
             EventRangeDown(5);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            Application.Quit();
         }
     }
 
@@ -30,7 +35,11 @@ public class PrefabGameController : MonoBehaviour
         SteelSeries.GameSense.GSClient.Instance.SendEvent("RANGED-EVENT", score);
     }
 
-    public void EventToggle(bool value) {
+    public void EventToggle( bool value ) {
         SteelSeries.GameSense.GSClient.Instance.SendEvent("BINARY-EVENT", Convert.ToInt32(value));
+    }
+
+    public void SwitchScenes() {
+        SceneManager.LoadScene("GSScriptedScene");
     }
 }
