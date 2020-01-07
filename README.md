@@ -1,5 +1,5 @@
 # Unity-GameSense-Project
-Unity ver. 2019.2.6f1
+Unity ver. 2019.2.7f2
 
 The intention of this repo is to supplement the instructions and documentation listed for SteelSeries [GameSense SDK](https://github.com/SteelSeries/gamesense-sdk) and [Unity GameSense Client](https://github.com/SteelSeries/unity-gamesense-client).
 
