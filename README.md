@@ -1,6 +1,6 @@
 # Unity-GameSense-Project
 Unity ver. 2019.2.7f2
-2019.1 version available for download [here.](https://www.dropbox.com/s/eunpth2a9865cu8/UnityDemo%202019.1.zip?dl=0)
+2019.1 version and standalone available for download [here.](https://steelseries.box.com/s/x54w08fbinxhxrywigyisotybq8v8dal)
 
 The intention of this repo is to supplement the instructions and documentation listed for SteelSeries [GameSense SDK](https://github.com/SteelSeries/gamesense-sdk) and [Unity GameSense Client](https://github.com/SteelSeries/unity-gamesense-client).
 
